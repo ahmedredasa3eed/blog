@@ -26,6 +26,7 @@
 
     <input type="file" value="{{$offer->photo}}" name="photo" class="form-control">
     <small id="photo_error"></small>
+
     <hr>
 
     <input type="hidden" value="{{$offer->id}}" name="id">
