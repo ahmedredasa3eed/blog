@@ -41,7 +41,7 @@ class OfferAjaxController extends Controller
     }
 
     public function show(){
-        $offers = Offer::get();
+        $offers = Offer::paginate(PAGINATION_COUNT);
         return view('offers-ajax.all-offers',compact('offers'));
     }
 
@@ -120,5 +120,7 @@ class OfferAjaxController extends Controller
             );
 
     }
+
+
 
 }

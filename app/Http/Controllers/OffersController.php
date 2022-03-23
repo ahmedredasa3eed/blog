@@ -23,7 +23,8 @@ class OffersController extends Controller
 
     public function getAllOffers(){
 
-         $offers = Offer::get();
+         //$offers = Offer::get();
+         $offers = Offer::GetOffers()->get();
          return view('offers.all-offers',compact('offers'));
     }
 

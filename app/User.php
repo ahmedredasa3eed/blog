@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone','expire'
+        'name', 'email', 'password','phone','age','expire'
     ];
 
     /**
@@ -25,8 +25,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
-    ];
+        'password', 'remember_token','created_at','updated_at',
+        ];
 
     /**
      * The attributes that should be cast to native types.
@@ -36,4 +36,16 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    ############### START RELATIONS ###########
+
+    public function mobile(){
+        return $this->hasOne('App\Phone','user_id');
+    }
+
+
+    ############### END RELATIONS #############
+
+
 }

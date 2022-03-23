@@ -12,4 +12,9 @@ class Offer extends Model
     protected $hidden = ['created_at'];
 
 
+    ##############  scopes ##########
+
+    public function scopeGetOffers($query){
+        return $query->whereNull('title_ar');
+    }
 }

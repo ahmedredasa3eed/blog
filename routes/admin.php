@@ -10,15 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/admin', function () {
     return 'Hello Admin';
-});
+});*/
 
-Route::namespace('Backend')->group(function (){
+/*Route::namespace('Backend')->group(function (){
 
-    Route::get('admin','AdminController@showAdminName');
-});
+    Route::get('admins','Admin@showAdminName');
+});*/
 
 Route::group(['prefix'=>'users','middleware'=>'auth'],function (){
 

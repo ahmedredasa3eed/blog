@@ -44,6 +44,8 @@
 
         </tbody>
     </table>
+
+    {{$offers->links()}}
 </div>
 
 </body>

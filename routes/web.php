@@ -13,6 +13,8 @@
 
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
+define('PAGINATION_COUNT',5);
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -58,3 +60,65 @@ Route::group(['prefix'=>'ajax-offers'],function (){
     Route::get('edit/{offerId}','OfferAjaxController@edit')->name('ajax-offers.edit');
     Route::post('update','OfferAjaxController@update')->name('ajax-offers.update');
 });
+
+
+##### MiddleWare Routes
+
+Route::group(['middleware'=>'auth'],function (){
+    Route::get('adult','AuthController@adult')->middleware('CustomAuth');
+    Route::get('not-adult',function (){
+        return 'Sorry you are not adult';
+    })->name('not-adult');
+});
+
+##### Admin Guard Routes###############
+
+Route::get('site','AuthController@site')->middleware('auth:web');
+Route::get('admin','AuthController@admin')->middleware('auth:admin')->name('admin');
+Route::get('admin-login','AuthController@loadAdminLoginForm');
+Route::post('admin-login-process','AuthController@adminLogin')->name('adminLogin.process');
+
+
+
+########SuperVisor Guard Routes ###########
+Route::group(['prefix'=>'supervisor'],function (){
+    Route::get('login','SupervisorAuthController@loadSupervisorLoginForm')->name('supervisor.loginForm');
+    Route::post('login','SupervisorAuthController@supervisorLogin')->name('supervisor.login-process');
+    Route::get('dashboard','SupervisorAuthController@dashboard')->middleware('auth:supervisor')->name('supervisor.dashboard');
+    Route::get('logout', 'SupervisorAuthController@logout')->name('supervisor.logout');
+
+});
+
+
+######## ONE TO ONE Relations Routes ###########
+Route::get('has-one','Relations\RelationsController@hasOneRelation');
+Route::get('has-one-reverse','Relations\RelationsController@hasOneRelationReverse');
+Route::get('getUserOwnsMobile','Relations\RelationsController@getUserOwnsMobile');
+
+######## ONE TO MANY Relations Routes ###########
+Route::get('getAllDoctorDetails','Relations\RelationsController@getAllDoctorDetails');
+Route::get('getOneDoctor/{doctor_id}','Relations\RelationsController@getOneDoctor');
+Route::get('getAllHospitalInfo','Relations\RelationsController@getAllHospitalInfo')->name('getAllHospitalInfo');
+Route::get('getDoctorsInSelectedHospital/{hospital_id}','Relations\RelationsController@getDoctorsInSelectedHospital');
+Route::get('getHospitalThatHaveDoctorsOnly','Relations\RelationsController@getHospitalThatHaveDoctorsOnly');
+Route::get('deleteHospital/{hospital_id}','Relations\RelationsController@deleteHospital');
+
+######## MANY TO MANY Relations Routes ###########
+Route::get('getDoctorServices','Relations\RelationsController@getDoctorServices');
+Route::get('doctorServices/{doctor_id}','Relations\RelationsController@doctorServices');
+Route::post('saveDoctorServices','Relations\RelationsController@saveDoctorServices');
+
+
+######## HAS ONE through Relations Routes ###########
+Route::get('getDoctorOfPatients','Relations\RelationsController@getDoctorOfPatients');
+Route::get('getPatientOfDoctor','Relations\RelationsController@getPatientOfDoctor');
+
+######## HAS MANY through Relations Routes ###########
+Route::get('getDoctorsOfCountry','Relations\RelationsController@getDoctorsOfCountry');
+
+
+#########
+Route::get('getHospitalOfCountry','Relations\RelationsController@getHospitalOfCountry');
+
+
+
