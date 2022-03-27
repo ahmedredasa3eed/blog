@@ -56,6 +56,7 @@ Route::group(['prefix'=>'ajax-offers'],function (){
     Route::get('create','OfferAjaxController@create');
     Route::post('store','OfferAjaxController@store')->name('ajax-store.store');
     Route::get('show','OfferAjaxController@show')->name('ajax-store.show');
+    Route::get('details/{offerId}','OfferAjaxController@details')->name('ajax-offer.details');
     Route::post('delete','OfferAjaxController@delete')->name('ajax-offers.delete');
     Route::get('edit/{offerId}','OfferAjaxController@edit')->name('ajax-offers.edit');
     Route::post('update','OfferAjaxController@update')->name('ajax-offers.update');
@@ -119,6 +120,23 @@ Route::get('getDoctorsOfCountry','Relations\RelationsController@getDoctorsOfCoun
 
 #########
 Route::get('getHospitalOfCountry','Relations\RelationsController@getHospitalOfCountry');
+
+
+############# Collection Routes #######
+
+Route::get('index','Collections\CollectionController@index');
+Route::get('filter','Collections\CollectionController@filter');
+Route::get('transform','Collections\CollectionController@transform');
+
+
+
+######################### Payment ###########################
+Route::group(['middleware'=>'auth','namespace'=>'Payment'],function (){
+    Route::get('checkout/{offerId}/{offerPrice}','PaymentProviderController@checkout');
+    #### to check payment status in offer details route as it the shoper url
+});
+
+Route::get('sendEmails','Backend\UsersController@sendEmailsToUsers');
 
 
 

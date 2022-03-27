@@ -33,6 +33,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('user:expire')->everyMinute();
         $schedule->command('user:email')->everyMinute();
+        $schedule->command('queue:work')->everyMinute();
+        $schedule->command('queue:restart')->everyFiveMinutes();
     }
 
     /**

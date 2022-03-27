@@ -34,7 +34,7 @@ Route::group(['namespace'=>'Backend'],function (){
 
 Route::resource('news','NewsController');
 
-Route::get('/index', 'NewsController@index');
+//Route::get('/index', 'NewsController@index');
 
 Route::get('/landing', function (){
     return view('landing');
